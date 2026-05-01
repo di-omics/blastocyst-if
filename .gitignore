@@ -1,0 +1,23 @@
+# Data (too big for git)
+data/
+outputs/
+*.czi
+*.lif
+*.nd2
+*.ome.tif
+*.ome.tiff
+*.h5
+*.h5ad
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Env
+.env
+.venv
+
+# OS
+.DS_Store
