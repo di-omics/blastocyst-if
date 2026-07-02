@@ -74,6 +74,25 @@ Published confocal stacks are available from:
 
 ![QC plots](assets/blastocyst_qc.png)
 
+## How it works
+
+Lineage classification by highest normalized marker intensity (from `src/03_classify.py`):
+
+```python
+def classify_max_marker(df, marker_cols, lineage_names):
+    marker_vals = df[marker_cols].values.astype(float)
+    # normalize each marker to [0, 1] across all nuclei
+    mins = marker_vals.min(axis=0)
+    maxs = marker_vals.max(axis=0)
+    ranges = maxs - mins
+    ranges[ranges == 0] = 1
+    normed = (marker_vals - mins) / ranges
+    best = np.argmax(normed, axis=1)
+    return [lineage_names[i] for i in best]
+```
+
+Each nucleus is assigned the lineage whose marker is strongest after min-max normalization. The `--method gmm` flag fits a 2-component GMM per marker and uses posteriors instead.
+
 ## Files
 
 ```
